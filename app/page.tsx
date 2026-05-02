@@ -1,9 +1,16 @@
-import React from 'react'
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-const page = () => {
+export default async function Page() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    redirect("/sign-in");
+  }
+
   return (
-    <div>page</div>
-  )
+    <div className="flex items-center justify-center h-screen text-2xl">
+      Welcome to Home Page 🚀
+    </div>
+  );
 }
-
-export default page
